@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1>Company</h1>
+        <ul class="nav-menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Store</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <a href="#" class="toggle-button">
+          <img src="toggleButton.png" alt="Toggle Button" />
+        </a>
+      </nav>
+      <ul class="dropdown-menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Store</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <script>
+        //luam button-ul de toggle
+        const toggleBtn = document.getElementsByClassName('toggle-button')[0];
+        //luam meniul pentru mobile
+        const dropdownMenu =
+          document.getElementsByClassName('dropdown-menu')[0];
+        //cand dam click, adauga clasa "open" daca nu exista in dropdown-menu sau o sterge daca exista
+        toggleBtn.onclick = function () {
+          dropdownMenu.classList.toggle('open');
+        };
+      </script>
+    </header>
+    <main>
+      <div class="person-zone"></div>
+    </main>
+  </body>
+  <script>
+    fetch('data.json')
+      .then((data) => data.json())
+      .then((data) => createPersonCard(data))
+      .catch((err) => console.log(err));
+
+    function createPersonCard(data) {
+      const zone = document.getElementsByClassName('person-zone')[0];
+      for (let i = 0; i < data.length; i++) {
+        const person = document.createElement('div');
+        person.innerHTML = `<div class="card">
+        <img class="profile-picture" src="man.png" alt="Profile picture" />
+        <div class="details">
+          <p class="name">${data[i].name}</p>
+          <p>${data[i].age}</p>
+        </div>
+      </div>`;
+        zone.appendChild(person);
+      }
+    }
+  </script>
+</html>
